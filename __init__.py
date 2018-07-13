@@ -17,7 +17,7 @@ from threading import Lock
 
 # TODO: Change "Template" to a unique name for your skill
 class MySkill(MycroftSkill):
-
+	LOCK = Lock()
     # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
         super(MySkill, self).__init__(name="MySkill")
@@ -38,7 +38,7 @@ class MySkill(MycroftSkill):
     #   'Greetings planet earth'
     @intent_handler(IntentBuilder("").require("Hello").require("World"))
     def handle_hello_world_intent(self, message):
-        self.Lock()
+        self.LOCK
         # In this case, respond by simply speaking a canned response.
         # Mycroft will randomly speak one of the lines from the file
         #    dialogs/en-us/hello.world.dialogd
