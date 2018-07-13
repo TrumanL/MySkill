@@ -41,7 +41,7 @@ class MySkill(ScheduledCRUDSkill):
 		self.Lock()
         # In this case, respond by simply speaking a canned response.
         # Mycroft will randomly speak one of the lines from the file
-        #    dialogs/en-us/hello.world.dialog
+        #    dialogs/en-us/hello.world.dialogd
         self.speak_dialog("hello.world")
 	
     # The "stop" method defines what Mycroft does when told to stop during
