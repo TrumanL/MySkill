@@ -17,7 +17,7 @@ from threading import Lock
 
 # TODO: Change "Template" to a unique name for your skill
 class MySkill(MycroftSkill):
-	LOCK = Lock()
+    LOCK = Lock()
     # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
         super(MySkill, self).__init__(name="MySkill")
