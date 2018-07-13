@@ -60,6 +60,6 @@ class MySkill(MycroftSkill):
 
   # The "create_skill()" method is used to create an instance of the skill.
   # Note that it's outside the class itself.a
-def create_skill():
-  return MySkill()
+	def create_skill():
+	  return MySkill()
 
