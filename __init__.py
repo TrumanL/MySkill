@@ -16,7 +16,7 @@ from threading import Lock
 # from the MycroftSkill class.  You extend this class as shown below.
 
 # TODO: Change "Template" to a unique name for your skill
-class MySkill(ScheduledCRUDSkill):
+class MySkill(MycroftSkill):
 
     # The constructor of the skill, which calls MycroftSkill's constructor
     def __init__(self):
@@ -44,7 +44,7 @@ class MySkill(ScheduledCRUDSkill):
         #    dialogs/en-us/hello.world.dialogd
         self.speak_dialog("hello.world")
     # The "stop" method defines what Mycroft does when told to stop during
-    # the skill's execution. In this case, since the skill's functionality
+    # the skill's execution. In this case, since the skill's fhiunctionality
     # is extremely simple, there is no need to override it.  If you DO
     # need to implement stop, you should return True to indicate you handled
     # it.
