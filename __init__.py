@@ -11,6 +11,7 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 from threading import Lock
+from datetime import datetime, timedelta
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
@@ -42,7 +43,8 @@ class MySkill(MycroftSkill):
 	        # In this case, respond by simply speaking a canned response.
 	        # Mycroft will randomly speak one of the lines from the file
 	        #    dialogs/en-us/hello.world.dialogd
-	        self.speak_dialog("hello.world")
+	        	while datetime.now() < datetime.now() + timedelta(seconds = 5):
+					self.speak_dialog("hello.world")
     # The "stop" method defines what Mycroft does when told to stop during
     # the skill's execution. In this case, since the skill's fhiunctionality
     # is extremely simple, there is no need to override it.  If you DO
