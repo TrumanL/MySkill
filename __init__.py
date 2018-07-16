@@ -57,7 +57,7 @@ class MySkill(MycroftSkill):
                 if any(word in outMessageConfirm for word in yes_words):
                     outMessage = self.get_response('ask.for_message')
                     #write outMessage to out file
-               del messageData["messages"][i]
+              del messageData["messages"][i]
             
 
       else:
