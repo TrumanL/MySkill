@@ -42,13 +42,13 @@ class MySkill(MycroftSkill):
   def handle_read_messages_intent(self, message):
     with open("/home/truman/Documents/messageQueue.json", 'r') as f:
       messageData = json.load(f)
-      if len(messageData) > 0:
-        self.speak(str(len(messageData)) + " new messages.")
+      if len(messageData["messages"]) > 0:
+        self.speak(str(len(messageData["messages"])) + " new messages.")
          #       confirmedIntent =  self.get_response("ask.confirm")
         #       yes_words = set(self.translate_list('confirm'))
         if True: #any(word in confirmedIntent for word in yes_words):
             index = 0
-            for i in messageData:
+            for i in messageData["messages"]:
               index+=1
               self.speak("From " + i["sender"])
               wait_while_speaking()
@@ -59,9 +59,9 @@ class MySkill(MycroftSkill):
                 if any(word in outMessageConfirm for word in yes_words):
                     outMessage = self.get_response('ask.for_message')
                     #write outMessage to out file
-              del messageData[index]
-              json.dump(messageData, f)
+              del messageData["messages"][index]
               self.speak("Next Message")
+           json.dump(messageData, f)
             
 
       else:
