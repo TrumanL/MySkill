@@ -61,7 +61,7 @@ class MySkill(MycroftSkill):
                     #write outMessage to out file
               del messageData["messages"][index]
               self.speak("Next Message")
-           json.dump(messageData, f)
+        json.dump(messageData, f)
             
 
       else:
