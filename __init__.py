@@ -43,13 +43,15 @@ class MySkill(MycroftSkill):
     with open("/home/truman/Documents/messageQueue.json", 'r') as f:
       messageData = json.load(f)
       if len(messageData["messages"]) > 0:
-        self.speak(str(len(messageData["messages"])) + " new messages. Would you like to hear them?")
-        confirmedIntent =  self.get_response("confirm")
-        for i in messageData["messages"]:
-          self.speak("From " + i["sender"])
-          wait_while_speaking()
-          self.speak(i["data"])
-          wait_while_speaking()
+        self.speak(str(len(messageData["messages"])) + " new messages.")
+        confirmedIntent =  self.get_response("ask.confirm")
+        yes_words = set(self.translate_list('yes'))
+        if any(word in confirmedIntent for word in yes_words):
+            for i in messageData["messages"]:
+              self.speak("From " + i["sender"])
+              wait_while_speaking()
+              self.speak(i["data"])
+              wait_while_speaking()
 
       else:
         self.stop()
