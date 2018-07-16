@@ -44,7 +44,7 @@ class MySkill(MycroftSkill):
     with open("/home/truman/Documents/messageQueue.json", 'r') as f:
       messageData = json.load(f)
       if len(messageData["messages"]) > 0:
-        self.speak(len(messageData["messages"]) + "new messages")
+        self.speak(str(len(messageData["messages"])) + "new messages")
         for i in messageData["messages"]:
           self.speak(i)
           wait_while_speaking()
