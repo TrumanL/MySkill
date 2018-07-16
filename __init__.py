@@ -54,9 +54,9 @@ class MySkill(MycroftSkill):
               wait_while_speaking()
               if i["responce-needed"] == "true":
                 outMessageConfirm = self.get_response('ask.confirm_message_response')
-                    if any(word in outMessageConfirm for word in yes_words):
-                       outMessage = self.get_response('ask.for_message')
-                       #write outMessage to out file
+                  if any(word in outMessageConfirm for word in yes_words):
+                    outMessage = self.get_response('ask.for_message')
+                    #write outMessage to out file
                del messageData["messages"][i]
             
 
