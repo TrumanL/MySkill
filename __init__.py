@@ -26,7 +26,7 @@ class MySkill(MycroftSkill):
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
 
-   # Initialize working variables used within the skill.
+    # Initialize working variables used within the skill.
     self.count = 0
   # The "handle_xxxx_intent" function is triggered by Mycroft when the
   # skill's intent is matched.  The intent is defined by the IntentBuilder()
@@ -41,18 +41,19 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Hello").require("World"))  
   def handle_hello_world_intent(self, message):
-  	with open("/home/truman/Documents/messageQueue.json", 'r') as f:
-	  	messageData = json.load(f)
-  	if len(messageData["messages"]) > 0:
-	  	self.speak(len(messageData["messages"], "new messages")
-	  	for i in messageData["messages"]:
-	  	   	self.speak(i)
-            wait_while_speaking()
-  	else:
-	    self.stop()
-		
+    with open("/home/truman/Documents/messageQueue.json", 'r') as f:
+      messageData = json.load(f)
+      if len(messageData["messages"]) > 0:
+        self.speak(len(messageData["messages"], "new messages"))
+        for i in messageData["messages"]:
+          self.speak(i)
+          wait_while_speaking()
+
+      else:
+        self.stop()
+
   def stop(self):
-  	return False
+    return False
 
 # The "create_skill()" method is used to create an instance of the skill.
 # Note that it's outside the class itself.
