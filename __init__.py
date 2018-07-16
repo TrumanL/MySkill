@@ -48,8 +48,8 @@ class MySkill(MycroftSkill):
         self.speak_dialog("hello.world")
         while datetime.now() < delay:
           #nothi
-		  self.speak_dialog("hello.world")
-		  delay = datetime.now() + timedelta(seconds=30)
+          self.speak_dialog("hello.world")
+          delay = datetime.now() + timedelta(seconds=30)
 
 # The "stop" method defines what Mycroft does when told to stop during
 # the skill's execution. In this case, since the skill's fhiunctionality
