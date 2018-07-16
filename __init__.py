@@ -44,9 +44,9 @@ class MySkill(MycroftSkill):
       messageData = json.load(f)
       if len(messageData["messages"]) > 0:
         self.speak(str(len(messageData["messages"])) + " new messages.")
-         #       confirmedIntent =  self.get_response("ask.confirm")
-        #       yes_words = set(self.translate_list('confirm'))
-        if True: #any(word in confirmedIntent for word in yes_words):
+         confirmedIntent =  self.get_response("ask.confirm")
+        yes_words = set(self.translate_list('confirm'))
+        if any(word in confirmedIntent for word in yes_words):
             fullData = messageData
             for i in range(len(fullData["messages"])):
               poppedData = messageData["messages"].pop()
