@@ -44,7 +44,7 @@ class MySkill(MycroftSkill):
     #    dialogs/en-us/hello.world.dialog
 
       while True:
-        delay = datetime.now() + timedelta(seconds = 30)
+        delay =timedelta(seconds = 30)
         self.speak_dialog("hello.world")
         while datetime.now() < datetime.now() + delay:
           #nothing
