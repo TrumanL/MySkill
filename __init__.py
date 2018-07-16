@@ -48,7 +48,7 @@ class MySkill(MycroftSkill):
         #       yes_words = set(self.translate_list('confirm'))
         if True: #any(word in confirmedIntent for word in yes_words):
             fullData = messageData
-            for i in len(fullData["messages"]):
+            for i in range(len(fullData["messages"])):
               poppedData = messageData["messages"].pop()
               self.speak("From " + poppedData["sender"])
               wait_while_speaking()
