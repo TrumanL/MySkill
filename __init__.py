@@ -26,7 +26,6 @@ class MySkill(MycroftSkill):
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
     # Initialize working variables used within the skill.
-    self.count = 0
   # The "handle_xxxx_intent" function is triggered by Mycroft when the
   # skill's intent is matched.  The intent is defined by the IntentBuilder()s
   # pieces, and is triggered when the user's utterance matches the pattern
@@ -42,25 +41,34 @@ class MySkill(MycroftSkill):
   def handle_read_messages_intent(self, message):
     with open("/home/truman/Documents/messageQueue.json", 'r+') as f:
       messageData = json.load(f)
+      
       if len(messageData["messages"]) > 0:
+        
         self.speak(str(len(messageData["messages"])) + " new messages.")
         confirmedIntent =  self.get_response("ask.confirm_message_view")
         yes_words = set(self.translate_list('confirm'))
+        
         if any(word in confirmedIntent for word in yes_words):
+            
             fullData = messageData
             for i in range(len(fullData["messages"])):
+              
               poppedData = messageData["messages"].pop()
-              self.speak("From " + poppedData["sender"])
+              self.speak("From " + poppedData["sender"] + ". " + poppedData["sender"] " says")
               wait_while_speaking()
               self.speak(poppedData["data"])
               wait_while_speaking()
+              
               if poppedData["response-needed"] == "true":
+                
                 outMessageConfirm = self.get_response('ask.confirm_message_response')
                 if any(word in outMessageConfirm for word in yes_words):
                     outMessage = self.get_response('ask.for_message')
-                    #write outMessage to out file
+                    #send outMessage to other person
                     print(outMessage)
+              
               open("/home/truman/Documents/messageQueue.json", "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+              
               if len(messageData["messages"]) > 0: 
                 self.speak("Next Message")
                 wait_while_speaking()
