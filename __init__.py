@@ -42,7 +42,7 @@ class MySkill(MycroftSkill):
   def handle_hello_world_intent(self, message):
   	with open("/home/truman/Documents/messageQueue.json", 'r') as f:
 	  	messageData = json.load(f)
-  	if messageData["messages"].length() > 0:
+  	if len(messageData["messages"]) > 0:
 	  	for i in messageData["messages"]:
 	  	   	self.speak(i)
   	else:
