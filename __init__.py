@@ -38,12 +38,13 @@ class MySkill(MycroftSkill):
   #   'Hello world'
   #   'Howdy you great big world'
   #   'Greetings planet earth'
-  @intent_handler(IntentBuilder("hello_world").require("Hello").require("World"))  
-  def handle_hello_world_intent(self, message):
+  @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
+  def handle_read_messages_intent(self, message):
     with open("/home/truman/Documents/messageQueue.json", 'r') as f:
       messageData = json.load(f)
       if len(messageData["messages"]) > 0:
-        self.speak(str(len(messageData["messages"])) + " new messages")
+        self.speak(str(len(messageData["messages"])) + " new messages. Would you like to hear them?")
+        confirmedIntent =  self.get_response("confirm")
         for i in messageData["messages"]:
           self.speak("From " + i["sender"])
           wait_while_speaking()
