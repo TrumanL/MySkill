@@ -13,6 +13,7 @@ from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 from threading import Lock
 from datetime import datetime, timedelta
+from mycroft.audio import wait_while_speaking
 
 
 # Each skill is contained within its own class, which inherits base methods
@@ -43,8 +44,10 @@ class MySkill(MycroftSkill):
   	with open("/home/truman/Documents/messageQueue.json", 'r') as f:
 	  	messageData = json.load(f)
   	if len(messageData["messages"]) > 0:
+        self.speak(len(messageData["messages"], "new messages")
 	  	for i in messageData["messages"]:
 	  	   	self.speak(i)
+            wait_while_speaking()
   	else:
 	    self.stop()
 		
