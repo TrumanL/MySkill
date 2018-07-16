@@ -6,12 +6,15 @@
 # libraries.  If you use an external library, be sure to include it
 # in the requirements.txt file so the library is installed properly
 # when the skill gets installed later by a user.
+import json
 
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 from threading import Lock
 from datetime import datetime, timedelta
+from Documents import WebsocketTest
+from Documents import messageQueue
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
@@ -38,26 +41,22 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Hello").require("World"))  
   def handle_hello_world_intent(self, message):
-    with self.LOCK:
-    # In this case, respond by simply speaking a canned response.
-    # Mycroft will randomly speak one of the lines from the file
-    #    dialogs/en-us/hello.world.dialog
-
-	    delay = datetime.now() + timedelta(seconds = 30)
-	    
-	    while datetime.now() > delay:
-	      #nothi
-	      self.speak_dialog("hello.world")
-	      delay = datetime.now() + timedelta(seconds=30)
-
+  	with open("messageQueue.json", 'r') as f:
+		messageData = json.load(f)
+	if messageData["messages"].length() > 0:
+		for i in messageData["messages"]:
+			self.speak(i)
+	else:
+		self.stop()
+			
 # The "stop" method defines what Mycroft does when told to stop during
 # the skill's execution. In this case, since the skill's fhiunctionality
 # is extremely simple, there is no need to override it.  If you DO
 # need to implement stop, you should return True to indicate you handled
 # it.
 #
-# def stop(self):
-#    return False
+  def stop(self):
+  	return False
 
 # The "create_skill()" method is used to create an instance of the skill.
 # Note that it's outside the class itself.
