@@ -43,13 +43,12 @@ class MySkill(MycroftSkill):
     # Mycroft will randomly speak one of the lines from the file
     #    dialogs/en-us/hello.world.dialog
 
-      while True:
-        delay = datetime.now() + timedelta(seconds = 30)
-        
-        while datetime.now() > delay:
-          #nothi
-          self.speak_dialog("hello.world")
-          delay = datetime.now() + timedelta(seconds=30)
+	    delay = datetime.now() + timedelta(seconds = 30)
+	    
+	    while datetime.now() > delay:
+	      #nothi
+	      self.speak_dialog("hello.world")
+	      delay = datetime.now() + timedelta(seconds=30)
 
 # The "stop" method defines what Mycroft does when told to stop during
 # the skill's execution. In this case, since the skill's fhiunctionality
