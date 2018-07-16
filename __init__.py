@@ -25,11 +25,10 @@ class MySkill(MycroftSkill):
   # The constructor of the skill, which calls MycroftSkill's constructor
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
-
     # Initialize working variables used within the skill.
     self.count = 0
   # The "handle_xxxx_intent" function is triggered by Mycroft when the
-  # skill's intent is matched.  The intent is defined by the IntentBuilder()
+  # skill's intent is matched.  The intent is defined by the IntentBuilder()s
   # pieces, and is triggered when the user's utterance matches the pattern
   # defined by the keywords.  In this case, the match occurs when one word
   # is found from each of the files:
@@ -39,7 +38,7 @@ class MySkill(MycroftSkill):
   #   'Hello world'
   #   'Howdy you great big world'
   #   'Greetings planet earth'
-  @intent_handler(IntentBuilder("").require("Hello").require("World"))  
+  @intent_handler(IntentBuilder("hello_world").require("Hello").require("World"))  
   def handle_hello_world_intent(self, message):
     with open("/home/truman/Documents/messageQueue.json", 'r') as f:
       messageData = json.load(f)
@@ -49,6 +48,7 @@ class MySkill(MycroftSkill):
           self.speak("From " + i["sender"])
           wait_while_speaking()
           self.speak(i["data"])
+          wait_while_speaking()
 
       else:
         self.stop()
