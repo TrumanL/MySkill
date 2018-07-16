@@ -61,6 +61,7 @@ class MySkill(MycroftSkill):
                 if any(word in outMessageConfirm for word in yes_words):
                     #outMessage = self.get_response('ask.for_message')
                     #write outMessage to out file
+                    print("")
               open("/home/truman/Documents/messageQueue.json", "w").write(json.dumps(f, sort_keys=True, indent=4, separators=(',', ': ')))
               self.speak("Next Message")
         
