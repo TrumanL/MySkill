@@ -61,7 +61,12 @@ class MySkill(MycroftSkill):
                     #write outMessage to out file
                 print("")
               open("/home/truman/Documents/messageQueue.json", "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
-              self.speak("Next Message")
+              if len(messageData["messages"]) > 0: 
+                self.speak("Next Message")
+                wait_while_speaking()
+              else:
+                self.speak("End Of messages")
+                wait_while_speaking()
         
             
 
