@@ -13,8 +13,7 @@ from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 from threading import Lock
 from datetime import datetime, timedelta
-from Documents import WebsocketTest
-from Documents import messageQueue
+
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
@@ -41,7 +40,7 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Hello").require("World"))  
   def handle_hello_world_intent(self, message):
-  	with open("messageQueue.json", 'r') as f:
+  	with open("./Documents/messageQueue.json", 'r') as f:
 	  	messageData = json.load(f)
   	if messageData["messages"].length() > 0:
 	  	for i in messageData["messages"]:
