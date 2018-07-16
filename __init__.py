@@ -40,7 +40,7 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Hello").require("World"))  
   def handle_hello_world_intent(self, message):
-  	with open("mycroft-core/messageQueue.json", 'r') as f:
+  	with self.open("/home/truman/Documents/messageQueue.json", 'r') as f:
 	  	messageData = json.load(f)
   	if messageData["messages"].length() > 0:
 	  	for i in messageData["messages"]:
