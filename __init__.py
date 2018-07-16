@@ -55,11 +55,11 @@ class MySkill(MycroftSkill):
               self.speak(poppedData["data"])
               wait_while_speaking()
               if poppedData["response-needed"] == "true":
-                #outMessageConfirm = self.get_response('ask.confirm_message_response')
-                #if any(word in outMessageConfirm for word in yes_words):
-                    #outMessage = self.get_response('ask.for_message')
+                outMessageConfirm = self.get_response('ask.confirm_message_response')
+                if any(word in outMessageConfirm for word in yes_words):
+                    outMessage = self.get_response('ask.for_message')
                     #write outMessage to out file
-                print("")
+                    print(outMessage)
               open("/home/truman/Documents/messageQueue.json", "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
               if len(messageData["messages"]) > 0: 
                 self.speak("Next Message")
