@@ -54,7 +54,7 @@ class MySkill(MycroftSkill):
               wait_while_speaking()
               self.speak(poppedData["data"])
               wait_while_speaking()
-              if i["response-needed"] == "true":
+              if poppedData["response-needed"] == "true":
                 #outMessageConfirm = self.get_response('ask.confirm_message_response')
                 if any(word in outMessageConfirm for word in yes_words):
                     #outMessage = self.get_response('ask.for_message')
