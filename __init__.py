@@ -47,14 +47,8 @@ class MySkill(MycroftSkill):
 	  	for i in messageData["messages"]:
 	  	   	self.speak(i)
   	else:
-		self.stop()
-			
-# The "stop" method defines what Mycroft does when told to stop during
-# the skill's execution. In this case, since the skill's fhiunctionality
-# is extremely simple, there is no need to override it.  If you DO
-# need to implement stop, you should return True to indicate you handled
-# it.
-#
+	    self.stop()
+		
   def stop(self):
   	return False
 
