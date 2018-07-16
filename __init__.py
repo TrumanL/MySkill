@@ -60,6 +60,7 @@ class MySkill(MycroftSkill):
                     outMessage = self.get_response('ask.for_message')
                     #write outMessage to out file
               del messageData["messages"][index]
+              self.speak("Next Message")
             
 
       else:
