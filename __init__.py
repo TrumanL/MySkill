@@ -43,10 +43,10 @@ class MySkill(MycroftSkill):
   def handle_hello_world_intent(self, message):
   	with open("messageQueue.json", 'r') as f:
 	  	messageData = json.load(f)
-	if messageData["messages"].length() > 0:
-		for i in messageData["messages"]:
-			self.speak(i)
-	else:
+  	if messageData["messages"].length() > 0:
+	  	for i in messageData["messages"]:
+	  	   	self.speak(i)
+  	else:
 		self.stop()
 			
 # The "stop" method defines what Mycroft does when told to stop during
