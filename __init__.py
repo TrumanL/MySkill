@@ -44,14 +44,21 @@ class MySkill(MycroftSkill):
       messageData = json.load(f)
       if len(messageData["messages"]) > 0:
         self.speak(str(len(messageData["messages"])) + " new messages.")
-        confirmedIntent =  self.get_response("ask.confirm")
-        yes_words = set(self.translate_list('confirm'))
-        if any(word in confirmedIntent for word in yes_words):
+ #       confirmedIntent =  self.get_response("ask.confirm")
+ #       yes_words = set(self.translate_list('confirm'))
+        if True: #any(word in confirmedIntent for word in yes_words):
             for i in messageData["messages"]:
               self.speak("From " + i["sender"])
               wait_while_speaking()
               self.speak(i["data"])
               wait_while_speaking()
+              if i["responce-needed"] == "true":
+                outMessageConfirm = self.get_response('ask.confirm_message_response')
+                     if any(word in outMessageConfirm for word in yes_words):
+                       outMessage = self.get_response('ask.for_message')
+                       #write outMessage to out file
+               del messageData["messages"][i]
+            
 
       else:
         self.stop()
