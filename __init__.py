@@ -54,7 +54,7 @@ class MySkill(MycroftSkill):
             for i in range(len(fullData["messages"])):
               
               poppedData = messageData["messages"].pop()
-              self.speak("From " + poppedData["sender"] + ". " + poppedData["sender"] " says")
+              self.speak("From " + poppedData["sender"] + ". " + poppedData["sender"] +" says")
               wait_while_speaking()
               self.speak(poppedData["data"])
               wait_while_speaking()
