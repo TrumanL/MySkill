@@ -16,6 +16,7 @@ from datetime import datetime, timedelta
 from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
 from mycroft.messagebus.client.ws import WebsocketClient
+from websocket import create_connection
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
