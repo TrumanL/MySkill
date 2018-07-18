@@ -14,7 +14,7 @@ from mycroft.util.log import LOG
 from threading import Lock
 from datetime import datetime, timedelta
 from mycroft.audio import wait_while_speaking
-
+from mycroft.configuration import ConfigurationManager
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
@@ -25,7 +25,15 @@ class MySkill(MycroftSkill):
   # The constructor of the skill, which calls MycroftSkill's constructor
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
-    self.emitter.on("blahblah", handle_read_messages_intent)
+    config = ConfigurationManager.get().get("websocket")
+    url = WebsocketClient.build_url(config.get("host"),
+                                    config.get("port"),
+                                    config.get("route"),
+                                    config.get("ssl"))
+
+    # Send the provided message/data
+    ws = create_connection(url)
+    ws.on("blahblah", handle_read_messages_intent)
     # Initialize working variables used within the skill.
   # The "handle_xxxx_intent" function is triggered by Mycroft when the
   # skill's intent is matched.  The intent is defined by the IntentBuilder()s
