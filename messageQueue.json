@@ -1,8 +1,10 @@
 {"messages":
     [
-        "data":"hi",
-        "sender":"bob",
-        "response-needed":"false"
+        { 
+            "data":"hi",
+             "sender":"bob",
+            "response-needed":"false"
+        }
     ]
 
 }
