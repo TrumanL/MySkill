@@ -81,10 +81,9 @@ class MySkill(MycroftSkill):
       else:
           self.speak("No new messages")
           wait_while_speaking()
+          self.stop()
             
 
-      else:
-        self.stop()
 
   def stop(self):
     return False
