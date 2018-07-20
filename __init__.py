@@ -68,7 +68,7 @@ class MySkill(MycroftSkill):
               self.speak("From " + poppedData["sender"] + ". " + poppedData["sender"] +" says")
               wait_while_speaking()
               self.speak(poppedData["data"])
-              wait_while_speaking()
+              wait_while_speaking()s
               
               if poppedData["response-needed"] == "true":
                 
