@@ -44,7 +44,7 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
   def handle_read_messages_intent(self, message):
-    with open("/home/truman/Documents/messageQueue.json", 'r+') as f:
+    with open("messageQueue.json", 'r+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
@@ -84,7 +84,7 @@ class MySkill(MycroftSkill):
      
   @intent_handler(IntentBuilder("").require("websocket"))  
   def handle_read_messages_passive(self, message):
-    with open("/home/truman/Documents/messageQueue.json", 'r+') as f:
+    with open("messageQueue.json", 'r+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
