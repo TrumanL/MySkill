@@ -29,6 +29,7 @@ class MySkill(MycroftSkill):
     super(MySkill, self).__init__(name="MySkill")
     try: 
       self.add_event('check.notifications', self.handle_read_messages_passive)
+      print("Added Succesfully")
     except:
       pass
     # Initialize working variables used within the skill.
