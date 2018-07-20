@@ -48,10 +48,7 @@ class MySkill(MycroftSkill):
       if len(messageData["messages"]) > 0:
         
         self.speak(str(len(messageData["messages"])) + " new messages.")
-        confirmedIntent =  self.get_response("ask.confirm_message_view")
         yes_words = set(self.translate_list('confirm'))
-        
-       
         
         fullData = messageData
         for i in range(len(fullData["messages"])):
@@ -94,7 +91,7 @@ class MySkill(MycroftSkill):
         confirmedIntent =  self.get_response("ask.confirm_message_view")
         yes_words = set(self.translate_list('confirm'))
         
-       
+       print(yes_words)
         if any(word in confirmedIntent for word in yes_words):
             fullData = messageData
             for i in range(len(fullData["messages"])):
