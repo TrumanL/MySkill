@@ -95,7 +95,7 @@ class MySkill(MycroftSkill):
         yes_words = set(self.translate_list('confirm'))
         
        
-        if any(word in outMessageConfirm for word in yes_words):
+        if any(word in confirmedIntent for word in yes_words):
             fullData = messageData
             for i in range(len(fullData["messages"])):
               
