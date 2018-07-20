@@ -22,7 +22,7 @@ from websocket import create_connection
 # from the MycroftSkill class.  You extend this class as shown below.
 
 # TODO: Change "Template" to a unique name for your skill
-class MySkill(MycroftSkill):
+class MySkill(NotificationSkill):
   LOCK = Lock()
   # The constructor of the skill, which calls MycroftSkill's constructor
   def __init__(self):
