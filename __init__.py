@@ -28,7 +28,7 @@ class MySkill(MycroftSkill):
     # Initialize working variables used within the skill.
   def initialize(self):
       try: 
-          self.add_event('check.notifications', self.handle_read_messages_passive)
+          self.add_event('notificaton.check', self.handle_read_messages_passive)
           self.log.info("*******Handler Added Successfully")
       except:
           pass
