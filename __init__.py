@@ -25,6 +25,7 @@ class MySkill(MycroftSkill):
   # The constructor of the skill, which calls MycroftSkill's constructor
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
+    jsonPath = self.jsonPath
     # Initialize working variables used within the skill.
   def initialize(self):
       try: 
@@ -45,7 +46,7 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
   def handle_read_messages_intent(self, message):
-    with open(join(abspath(dirname(__file__)), 'messageQueue.json'), 'r+') as f:
+    with self.file_system.open(self.MESSAGEQUEUE, 'r+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
@@ -69,8 +70,8 @@ class MySkill(MycroftSkill):
                 outMessage = self.get_response('ask.for_message')
                 #send outMessage to other person
                 print(outMessage)
-          
-          open(join(abspath(dirname(__file__)), 'messageQueue.json'), "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+          f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+          #open(self.jsonPath, "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
           
           if len(messageData["messages"]) > 0: 
             self.speak("Next Message")
@@ -83,9 +84,9 @@ class MySkill(MycroftSkill):
           wait_while_speaking()
           self.stop()
      
-  @intent_handler(IntentBuilder("").require("websocket"))  
   def handle_read_messages_passive(self, message):
-    with open(join(abspath(dirname(__file__)), 'messageQueue.json'), 'r+') as f:
+    #with open(self.jsonPath, 'r+') as f:
+    with self.file_system.open(self.MESSAGEQUEUE, 'r+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
@@ -113,7 +114,7 @@ class MySkill(MycroftSkill):
                     #send outMessage to other person
                     print(outMessage)
               
-              open(join(abspath(dirname(__file__)), 'messageQueue.json'), "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+              f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
               
               if len(messageData["messages"]) > 0: 
                 self.speak("Next Message")
@@ -126,7 +127,7 @@ class MySkill(MycroftSkill):
             self.stop()
       else:
           self.stop()       
-
+    
 
   def stop(self):
     return False
