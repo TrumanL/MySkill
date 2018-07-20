@@ -50,7 +50,7 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
   def handle_read_messages_intent(self, message):
-    with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
+    with self.file_system.open(self.MessageQueueFileName, 'r+b') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
@@ -74,7 +74,9 @@ class MySkill(MycroftSkill):
                 outMessage = self.get_response('ask.for_message')
                 #send outMessage to other person
                 print(outMessage)
+          f.seek(0)
           f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+          f.truncate()
           #open(self.jsonPath, "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
           
           if len(messageData["messages"]) > 0: 
@@ -90,7 +92,7 @@ class MySkill(MycroftSkill):
      
   def handle_read_messages_passive(self, message):
     #with open(self.jsonPath, 'r+') as f:
-    with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
+    with self.file_system.open(self.MessageQueueFileName, 'r+b') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
@@ -117,9 +119,9 @@ class MySkill(MycroftSkill):
                     outMessage = self.get_response('ask.for_message')
                     #send outMessage to other person
                     print(outMessage)
-              
+              f.seek(0)
               f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
-              
+              f.truncate()
               if len(messageData["messages"]) > 0: 
                 self.speak("Next Message")
                 wait_while_speaking()
