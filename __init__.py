@@ -26,7 +26,7 @@ class MySkill(MycroftSkill):
   # The constructor of the skill, which calls MycroftSkill's constructor
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
-    file_system = FileSystemAccess("MySkill")
+    file_system = FileSystemAccess()
     self.MessageQueueFileName = "MessageQueue.json"
     
     # Initialize working variables used within the skill.
