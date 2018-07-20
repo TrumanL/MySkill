@@ -82,7 +82,47 @@ class MySkill(MycroftSkill):
           self.speak("No new messages")
           wait_while_speaking()
           self.stop()
-            
+     
+  @intent_handler(IntentBuilder("").require("websocket"))  
+  def handle_read_messages_passive(self, message):
+    with open("/home/truman/Documents/messageQueue.json", 'r+') as f:
+      messageData = json.load(f)
+      
+      if len(messageData["messages"]) > 0:
+        
+        self.speak("You have " + str(len(messageData["messages"])) + " new messages.")
+        confirmedIntent =  self.get_response("ask.confirm_message_view")
+        yes_words = set(self.translate_list('confirm'))
+        
+       
+        if any(word in outMessageConfirm for word in yes_words):
+            fullData = messageData
+            for i in range(len(fullData["messages"])):
+              
+              poppedData = messageData["messages"].pop()
+              self.speak("From " + poppedData["sender"] + ". " + poppedData["sender"] +" says")
+              wait_while_speaking()
+              self.speak(poppedData["data"])
+              wait_while_speaking()
+              
+              if poppedData["response-needed"] == "true":
+                
+                outMessageConfirm = self.get_response('ask.confirm_message_response')
+                if any(word in outMessageConfirm for word in yes_words):
+                    outMessage = self.get_response('ask.for_message')
+                    #send outMessage to other person
+                    print(outMessage)
+              
+              open("/home/truman/Documents/messageQueue.json", "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+              
+              if len(messageData["messages"]) > 0: 
+                self.speak("Next Message")
+                wait_while_speaking()
+              else:
+                self.speak("End Of messages")
+                wait_while_speaking()
+      else:
+          self.stop()       
 
 
   def stop(self):
