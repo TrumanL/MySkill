@@ -11,12 +11,9 @@ import json
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
-from threading import Lock
 from datetime import datetime, timedelta
 from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
-from mycroft.messagebus.client.ws import WebsocketClient
-from websocket import create_connection
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
@@ -29,7 +26,7 @@ class MySkill(MycroftSkill):
     super(MySkill, self).__init__(name="MySkill")
     try: 
       self.add_event('check.notifications', self.handle_read_messages_passive)
-      print("Added Succesfully")
+      self.log.info("*******Handlers Added Successfully")
     except:
       pass
     # Initialize working variables used within the skill.
