@@ -28,6 +28,7 @@ class MySkill(MycroftSkill):
     super(MySkill, self).__init__(name="MySkill")
     file_system = FileSystemAccess("MySkill")
     self.MESSAGEQUEUE = "MessageQueue.json"
+    self.file_system.create(self.MESSAGEQUEUE)
     # Initialize working variables used within the skill.
   def initialize(self):
       try: 
