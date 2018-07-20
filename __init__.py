@@ -118,6 +118,9 @@ class MySkill(MycroftSkill):
               else:
                 self.speak("End Of messages")
                 wait_while_speaking()
+        else :
+            self.speak("I'll show them another time")
+            self.stop()
       else:
           self.stop()       
 
