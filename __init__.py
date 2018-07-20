@@ -15,6 +15,7 @@ from datetime import datetime, timedelta
 from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
+from mycroft.filesystem import FileSystemAccess
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
