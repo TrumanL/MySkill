@@ -14,6 +14,7 @@ from mycroft.util.log import LOG
 from datetime import datetime, timedelta
 from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
+from os.path import join, abspath, dirname
 
 # Each skill is contained within its own class, which inherits base methods
 # from the MycroftSkill class.  You extend this class as shown below.
@@ -44,7 +45,7 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
   def handle_read_messages_intent(self, message):
-    with open("messageQueue.json", 'r+') as f:
+    with open(join(abspath(dirname(__file__)), 'messageQueue.json'), 'r+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
@@ -69,7 +70,7 @@ class MySkill(MycroftSkill):
                 #send outMessage to other person
                 print(outMessage)
           
-          open("/home/truman/Documents/messageQueue.json", "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+          open(join(abspath(dirname(__file__)), 'messageQueue.json'), "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
           
           if len(messageData["messages"]) > 0: 
             self.speak("Next Message")
@@ -84,7 +85,7 @@ class MySkill(MycroftSkill):
      
   @intent_handler(IntentBuilder("").require("websocket"))  
   def handle_read_messages_passive(self, message):
-    with open("messageQueue.json", 'r+') as f:
+    with open(join(abspath(dirname(__file__)), 'messageQueue.json'), 'r+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
@@ -112,7 +113,7 @@ class MySkill(MycroftSkill):
                     #send outMessage to other person
                     print(outMessage)
               
-              open("/home/truman/Documents/messageQueue.json", "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+              open(join(abspath(dirname(__file__)), 'messageQueue.json'), "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
               
               if len(messageData["messages"]) > 0: 
                 self.speak("Next Message")
