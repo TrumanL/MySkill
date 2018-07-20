@@ -7,7 +7,6 @@
 # in the requirements.txt file so the library is installed properly
 # when the skill gets installed later by a user.
 import json
-
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
