@@ -24,12 +24,13 @@ class MySkill(MycroftSkill):
   # The constructor of the skill, which calls MycroftSkill's constructor
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
-    try: 
-      self.add_event('check.notifications', self.handle_read_messages_passive)
-      self.log.info("*******Handlers Added Successfully")
-    except:
-      pass
     # Initialize working variables used within the skill.
+  def initialize(self):
+      try: 
+          self.add_event('check.notifications', self.handle_read_messages_passive)
+          self.log.info("*******Handler Added Successfully")
+      except:
+          pass
   # The "handle_xxxx_intent" function is triggered by Mycroft when the
   # skill's intent is matched.  The intent is defined by the IntentBuilder()s
   # pieces, and is triggered when the user's utterance matches the pattern
