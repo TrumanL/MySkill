@@ -20,7 +20,7 @@ from mycroft.configuration import ConfigurationManager
 
 # TODO: Change "Template" to a unique name for your skill
 class MySkill(MycroftSkill):
-  LOCK = Lock()
+  
   # The constructor of the skill, which calls MycroftSkill's constructor
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
