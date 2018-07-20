@@ -27,8 +27,8 @@ class MySkill(MycroftSkill):
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
     file_system = FileSystemAccess("MySkill")
-    self.MESSAGEQUEUE = "MessageQueue.json"
-    self.file_system.create(self.MESSAGEQUEUE)
+    self.MessageQueueFileName = "MessageQueue.json"
+    
     # Initialize working variables used within the skill.
   def initialize(self):
       try: 
@@ -50,7 +50,7 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
   def handle_read_messages_intent(self, message):
-    with self.file_system.open(self.MESSAGEQUEUE, 'r+') as f:
+    with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
@@ -90,7 +90,7 @@ class MySkill(MycroftSkill):
      
   def handle_read_messages_passive(self, message):
     #with open(self.jsonPath, 'r+') as f:
-    with self.file_system.open(self.MESSAGEQUEUE, 'r+') as f:
+    with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
