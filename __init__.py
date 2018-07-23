@@ -11,6 +11,12 @@ from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
+try:
+    import RPi.GPIO as GPIO
+except:
+    pass
+
+
 
 class MySkill(MycroftSkill):
   
@@ -25,6 +31,11 @@ class MySkill(MycroftSkill):
       try: 
           self.add_event('notification.check', self.handle_read_messages_passive)
           self.add_event('notification.push', self.handle_push_notification)
+      except:
+          pass
+      try:
+          GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+          GPIO.add_event_detect(23, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
       except:
           pass
       #initialize the message queue file if it does not already exist
