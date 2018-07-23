@@ -25,12 +25,13 @@ class MySkill(MycroftSkill):
       try: 
           self.add_event('notification.check', self.handle_read_messages_passive)
           self.add_event('notification.push', self.handle_push_notification)
-          self.log.info("*******Handler Added Successfully")
+          self.log.info("********Handler Added Successfully")
       except:
           pass
       #initialize the message queue file if it does not already exist
       try:
           t = self.file_system.open(self.MessageQueueFileName, 'r')
+          self.log.info("********Message Queue Exists")
           t.close()
       except:
           t = self.file_system.open(self.MessageQueueFileName, 'w')
