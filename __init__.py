@@ -123,7 +123,7 @@ class MySkill(MycroftSkill):
   def handle_push_notification(self, message):
       with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
           messageQueue = json.load(f)
-          messageQueue["messages"].append(message.serialize()["data"]["messageData"])
+          messageQueue["messages"].append(json.loads(message.serialize())["data"]["messageData"])
           f.seek(0)
           f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
           f.truncate()
