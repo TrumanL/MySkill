@@ -41,6 +41,8 @@ class MySkill(MycroftSkill):
       except:
           t = open(self.MessageQueueFileName, 'w')
           t.write(json.dumps({"messages":[]},  sort_keys=True, indent=4, separators=(',', ': ')))
+          t.close()
+          self.log.info("********Message Queue Initialized")
   # The "handle_xxxx_intent" function is triggered by Mycroft when the
   # skill's intent is matched.  The intent is defined by the IntentBuilder()s
   # pieces, and is triggered when the user's utterance matches the pattern
