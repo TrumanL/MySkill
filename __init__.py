@@ -63,7 +63,7 @@ class MySkill(MycroftSkill):
           f.seek(0)
           f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
           f.truncate()
-          
+          f.close()
           if len(messageData["messages"]) > 0: 
             self.speak("Next Message")
             wait_while_speaking()
@@ -105,7 +105,7 @@ class MySkill(MycroftSkill):
               f.seek(0)
               f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
               f.truncate()
-              
+              f.close()
               if len(messageData["messages"]) > 0: 
                 self.speak("Next Message")
                 wait_while_speaking()
