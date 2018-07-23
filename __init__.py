@@ -33,6 +33,7 @@ class MySkill(MycroftSkill):
           self.add_event('notificaton.check', self.handle_read_messages_passive)
           self.log.info("*******Handler Added Successfully")
           temp  = self.file_system.open(self.MessageQueueFileName, 'w')
+          temp.close()
       except:
           pass
   # The "handle_xxxx_intent" function is triggered by Mycroft when the
