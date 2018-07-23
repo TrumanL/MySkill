@@ -78,7 +78,7 @@ class MySkill(MycroftSkill):
   def handle_read_messages_passive(self, message):
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
       messageData = json.load(f)
-      
+      self.log.info("Hit before message check")
       if len(messageData["messages"]) > 0:
         
         self.speak("You have " + str(len(messageData["messages"])) + " new messages.")
