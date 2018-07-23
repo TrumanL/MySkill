@@ -25,7 +25,7 @@ class MySkill(MycroftSkill):
     super(MySkill, self).__init__(name="MySkill")
     self.MessageQueueFileName = 'MessageQueue.json'
     
-    # Initialize working variables used within the skill.
+    # Initialize working variables used within the skill
   def initialize(self):
       #initialize notification events
       try: 
