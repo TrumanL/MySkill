@@ -24,7 +24,7 @@ class MySkill(MycroftSkill):
       #initialize notification events
       try: 
           self.add_event('notificaton.check', self.handle_read_messages_passive)
-          self.add_event('notification.push', self.handle_push_notification)
+          #self.add_event('notification.push', self.handle_push_notification)
           self.log.info("*******Handler Added Successfully")
       except:
           pass
@@ -78,7 +78,6 @@ class MySkill(MycroftSkill):
   def handle_read_messages_passive(self, message):
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
       messageData = json.load(f)
-      self.log.info("Hit before message check")
       if len(messageData["messages"]) > 0:
         
         self.speak("You have " + str(len(messageData["messages"])) + " new messages.")
