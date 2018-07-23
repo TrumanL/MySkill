@@ -34,6 +34,7 @@ class MySkill(MycroftSkill):
           self.log.info("*******Handler Added Successfully")
       except:
           pass
+      #initialize the message queue file if it does not already exist
       try:
           t = open(self.MessageQueueFileName, 'r')
           t.close()
