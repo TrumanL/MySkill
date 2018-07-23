@@ -35,7 +35,9 @@ class MySkill(MycroftSkill):
           pass
       try:
           GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+          self.log.info("GPIO SETUP")
           GPIO.add_event_detect(23, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
+          self.log.info("GPIO EVENT ADDED")
       except:
           pass
       #initialize the message queue file if it does not already exist
