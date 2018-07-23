@@ -14,7 +14,7 @@ from mycroft.filesystem import FileSystemAccess
 try:
     import RPi.GPIO as GPIO
 except:
-    print(sys.exc_info()[0])
+    print(sys.exc_info())
 
 
 
