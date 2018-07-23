@@ -27,7 +27,7 @@ class MySkill(MycroftSkill):
       except:
           pass
       #initialize the message queue file if it does not already exist
-      t = open(self.MessageQueueFileName, 'w')
+      t = self.file_system.open(self.MessageQueueFileName, 'w')
       t.write(json.dumps({"messages":[]},  sort_keys=True, indent=4, separators=(',', ': ')))
       t.close()
       self.log.info("********Message Queue Initialized")
