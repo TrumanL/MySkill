@@ -30,13 +30,11 @@ class MySkill(MycroftSkill):
       #initialize the message queue file if it does not already exist
       try:
           t = self.file_system.open(self.MessageQueueFileName, 'r')
-          self.log.info("********Message Queue Exists")
           t.close()
       except:
           t = self.file_system.open(self.MessageQueueFileName, 'w')
           t.write(json.dumps({"messages":[]},  sort_keys=True, indent=4, separators=(',', ': ')))
           t.close()
-          self.log.info("********Message Queue Initialized")
  
   @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
   def handle_read_messages_intent(self, message):
@@ -44,8 +42,10 @@ class MySkill(MycroftSkill):
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
-        
-        self.speak(str(len(messageData["messages"])) + " new messages.")
+        if len(messageData["messages"]) == 1)
+            self.speak(str(len(messageData["messages"])) + " new message.")
+        else 
+            self.speak(str(len(messageData["messages"])) + " new messages.")
         yes_words = set(self.translate_list('confirm'))
         
         fullData = messageData
@@ -84,8 +84,11 @@ class MySkill(MycroftSkill):
       messageData = json.load(f)
       self.log.info(len(messageData["messages"]))
       if len(messageData["messages"]) > 0:
-        
-        self.speak("You have " + str(len(messageData["messages"])) + " new messages.")
+        if len(messageData["messages"]) == 1)
+            self.speak(str(len(messageData["messages"])) + " new message.")
+        else 
+            self.speak(str(len(messageData["messages"])) + " new messages.")
+        yes_words = set(self.translate_list('confirm'))
         confirmedIntent =  self.get_response("ask.confirm_message_view")
         yes_words = set(self.translate_list('confirm'))
         
