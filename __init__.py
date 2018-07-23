@@ -42,7 +42,7 @@ class MySkill(MycroftSkill):
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
-        if len(messageData["messages"]) == 1)
+        if len(messageData["messages"]) == 1:
             self.speak(str(len(messageData["messages"])) + " new message.")
         else 
             self.speak(str(len(messageData["messages"])) + " new messages.")
@@ -84,7 +84,7 @@ class MySkill(MycroftSkill):
       messageData = json.load(f)
       self.log.info(len(messageData["messages"]))
       if len(messageData["messages"]) > 0:
-        if len(messageData["messages"]) == 1)
+        if len(messageData["messages"]) == 1:
             self.speak(str(len(messageData["messages"])) + " new message.")
         else 
             self.speak(str(len(messageData["messages"])) + " new messages.")
