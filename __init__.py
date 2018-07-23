@@ -21,6 +21,7 @@ class MySkill(MycroftSkill):
     
     # Initialize working variables used within the skill.
   def initialize(self):
+      #initialize notification events
       try: 
           self.add_event('notificaton.check', self.handle_read_messages_passive)
           self.log.info("*******Handler Added Successfully")
@@ -61,7 +62,6 @@ class MySkill(MycroftSkill):
           f.seek(0)
           f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
           f.truncate()
-          #open(self.jsonPath, "w").write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
           
           if len(messageData["messages"]) > 0: 
             self.speak("Next Message")
@@ -75,8 +75,7 @@ class MySkill(MycroftSkill):
           self.stop()
      
   def handle_read_messages_passive(self, message):
-    #with open(self.jsonPath, 'r+') as f:
-    with self.file_system.open(self.MessageQueueFileName, 'r+b') as f:
+    with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
@@ -106,6 +105,7 @@ class MySkill(MycroftSkill):
               f.seek(0)
               f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
               f.truncate()
+              
               if len(messageData["messages"]) > 0: 
                 self.speak("Next Message")
                 wait_while_speaking()
@@ -118,7 +118,15 @@ class MySkill(MycroftSkill):
       else:
           self.stop()       
     
-
+  
+  def handle_push_notification(self, message):
+      with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
+          messageQueue = json.load(f)
+          messageQueue["messages"].append(message["messageData"])
+          f.seek(0)
+          f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+          f.truncate()
+  
   def stop(self):
     return False
 
