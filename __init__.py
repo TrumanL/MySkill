@@ -126,6 +126,7 @@ class MySkill(MycroftSkill):
           f.seek(0)
           f.write(json.dumps(messageQueue, sort_keys=True, indent=4, separators=(',', ': ')))
           f.truncate()
+          f.close()
   
   def stop(self):
     return False
