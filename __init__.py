@@ -12,9 +12,9 @@ from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
 try:
-    import python-rpi.gpio as GPIO
+  import python-rpi.gpio as GPIO
 except:
-    print(sys.exc_info())
+  print(sys.exc_info())
 
 
 
