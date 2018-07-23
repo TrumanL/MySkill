@@ -13,7 +13,7 @@ from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
 try:
     import RPi.GPIO as GPIO
-except as e:
+except:
     print(sys.exc_info()[0])
 
 
