@@ -13,8 +13,8 @@ from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
 try:
     import RPi.GPIO as GPIO
-except:
-    print("GPIO IMPORT FAILED")
+except as e:
+    print(e)
 
 
 
