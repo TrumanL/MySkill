@@ -14,7 +14,7 @@ from mycroft.filesystem import FileSystemAccess
 try:
     import RPi.GPIO as GPIO
 except:
-    pass
+    print("GPIO IMPORT FAILED")
 
 
 
@@ -39,7 +39,7 @@ class MySkill(MycroftSkill):
           GPIO.add_event_detect(23, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
           self.log.info("******GPIO EVENT ADDED")
       except:
-          pass
+          self.log.info("******GPIO EVENT FAILED")
       #initialize the message queue file if it does not already exist
       try:
           t = self.file_system.open(self.MessageQueueFileName, 'r')
