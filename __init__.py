@@ -125,7 +125,7 @@ class MySkill(MycroftSkill):
           messageQueue = json.load(f)
           messageQueue["messages"].append(json.loads(message.serialize())["data"]["messageData"])
           f.seek(0)
-          f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
+          f.write(json.dumps(messageQueue, sort_keys=True, indent=4, separators=(',', ': ')))
           f.truncate()
   
   def stop(self):
