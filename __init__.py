@@ -48,7 +48,7 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
   def handle_read_messages_intent(self, message):
-    with self.file_system.open(self.MessageQueueFileName, '+') as f:
+    with self.file_system.open(self.MessageQueueFileName, 'r+w') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
