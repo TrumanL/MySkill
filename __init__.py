@@ -32,10 +32,14 @@ class MySkill(MycroftSkill):
       try: 
           self.add_event('notificaton.check', self.handle_read_messages_passive)
           self.log.info("*******Handler Added Successfully")
-          temp  = self.file_system.open(self.MessageQueueFileName, 'w')
-          temp.close()
       except:
           pass
+      try:
+          t = open(self.MessageQueueFileName, 'r')
+          t.close()
+      except:
+          t = open(self.MessageQueueFileName, 'w')
+          t.write(json.dumps({"messages":[]},  sort_keys=True, indent=4, separators=(',', ': ')))
   # The "handle_xxxx_intent" function is triggered by Mycroft when the
   # skill's intent is matched.  The intent is defined by the IntentBuilder()s
   # pieces, and is triggered when the user's utterance matches the pattern
