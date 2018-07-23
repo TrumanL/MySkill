@@ -32,6 +32,7 @@ class MySkill(MycroftSkill):
       try: 
           self.add_event('notificaton.check', self.handle_read_messages_passive)
           self.log.info("*******Handler Added Successfully")
+          temp  = self.file_system.open(self.MessageQueueFileName, 'w')
       except:
           pass
   # The "handle_xxxx_intent" function is triggered by Mycroft when the
@@ -47,7 +48,7 @@ class MySkill(MycroftSkill):
   #   'Greetings planet earth'
   @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
   def handle_read_messages_intent(self, message):
-    with self.file_system.open(self.MessageQueueFileName, 'w') as f:
+    with self.file_system.open(self.MessageQueueFileName, '+') as f:
       messageData = json.load(f)
       
       if len(messageData["messages"]) > 0:
