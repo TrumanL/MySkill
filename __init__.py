@@ -23,7 +23,7 @@ class MySkill(MycroftSkill):
   def initialize(self):
       #initialize notification events
       try: 
-          self.add_event('notificaton.check', self.handle_read_messages_passive)
+          self.add_event('notification.check', self.handle_read_messages_passive)
           self.add_event('notification.push', self.handle_push_notification)
           self.log.info("*******Handler Added Successfully")
       except:
