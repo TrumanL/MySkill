@@ -1,7 +1,7 @@
 # TODO: Add an appropriate license to your skill before publishing.  See
 # the LICENSE file for more information.
 
-
+import sys
 import json
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
