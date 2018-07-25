@@ -11,8 +11,8 @@ from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
-from mycroft.util import record, play_wav
-from mycroft.client.speech import ResponsiveRecognizer
+
+from mycroft.client.speech.mic import ResponsiveRecognizer
 
 try:
     import RPi.GPIO as GPIO
