@@ -25,6 +25,7 @@ class MySkill(MycroftSkill):
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
     self.MessageQueueFileName = 'MessageQueue.json'
+    self.GPIO_Port = 21
     # Initialize working variables used within the skill.a
   def initialize(self):
       #initialize notification events
@@ -37,10 +38,10 @@ class MySkill(MycroftSkill):
       try:
           GPIO.cleanup()
           GPIO.setmode(GPIO.BCM)
-          GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+          GPIO.setup(self.GPIO_Port, GPIO.IN, pull_up_down=GPIO.PUD_UP)
           self.log.info("******GPIO SETUP")
-          GPIO.add_event_detect(21, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
-          self.log.info("******GPIO EVENT ADDED")
+          GPIO.add_event_detect(self.GPIO_Port, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
+          self.log.info("******GPIO EVENT ADDED: " + str(self.GPIO_Port))
       except:
           self.log.info("******GPIO EVENT FAILED")
           self.log.info(sys.exc_info())
