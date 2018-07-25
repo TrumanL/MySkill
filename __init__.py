@@ -42,7 +42,7 @@ class MySkill(MycroftSkill):
       except:
           self.log.info("******GPIO EVENT FAILED")
           self.log.info(sys.exc_info())
-      #initialize the message queue file if it does not already exist
+      #initialize the message queue file if it does not already exista
       try:
           t = self.file_system.open(self.MessageQueueFileName, 'r')
           t.close()
