@@ -12,10 +12,10 @@ from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
 
-
-import RPi.GPIO as GPIO
-
-#print(sys.exc_info())
+try:
+    import RPi.GPIO as GPIO
+except:
+    pass
 
 
 class MySkill(MycroftSkill):
@@ -41,6 +41,7 @@ class MySkill(MycroftSkill):
           self.log.info("******GPIO EVENT ADDED")
       except:
           self.log.info("******GPIO EVENT FAILED")
+          self.log.info(sys.exc_info())
       #initialize the message queue file if it does not already exist
       try:
           t = self.file_system.open(self.MessageQueueFileName, 'r')
