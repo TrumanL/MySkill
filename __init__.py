@@ -11,6 +11,7 @@ from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
+from mycroft.util import record, play_wav
 
 try:
     import RPi.GPIO as GPIO
@@ -78,9 +79,8 @@ class MySkill(MycroftSkill):
             
             outMessageConfirm = self.get_response('ask.confirm_message_response')
             if any(word in outMessageConfirm for word in yes_words):
-                outMessage = self.get_response('ask.for_message')
-                #send outMessage to other person
-                print(outMessage)
+                speak_dialog('ask.for_message')
+                record(join(self.file_system, 'test.wav')
           f.seek(0)
           f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
           f.truncate()
@@ -106,7 +106,6 @@ class MySkill(MycroftSkill):
         else:
             self.speak(str(len(messageData["messages"])) + " new messages.")
         confirmedIntent =  self.get_response("ask.confirm_message_view")
-        print(confirmedIntent)
         yes_words = set(self.translate_list('confirm'))
 
         if any(word in confirmedIntent for word in yes_words):
@@ -123,9 +122,9 @@ class MySkill(MycroftSkill):
                 
                 outMessageConfirm = self.get_response('ask.confirm_message_response')
                 if any(word in outMessageConfirm for word in yes_words):
-                    outMessage = self.get_response('ask.for_message')
-                    #send outMessage to other person
-                    print(outMessage)
+                    #outMessage = self.get_response('ask.for_message')
+                    record(join(self.file_system, 'test.wav')
+                    #print(outMessage)
               f.seek(0)
               f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
               f.truncate()
