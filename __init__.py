@@ -26,7 +26,7 @@ class MySkill(MycroftSkill):
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
     self.MessageQueueFileName = 'MessageQueue.json'
-    recognizer = ResponsiveRocognizer(None)
+    recognizer = ResponsiveRecognizer(None)
     # Initialize working variables used within the skill.a
   def initialize(self):
       #initialize notification events
