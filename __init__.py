@@ -37,9 +37,9 @@ class MySkill(MycroftSkill):
       try:
           GPIO.cleanup()
           GPIO.setmode(GPIO.BCM)
-          GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+          GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
           self.log.info("******GPIO SETUP")
-          GPIO.add_event_detect(17, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
+          GPIO.add_event_detect(21, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
           self.log.info("******GPIO EVENT ADDED")
       except:
           self.log.info("******GPIO EVENT FAILED")
