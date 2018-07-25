@@ -35,6 +35,7 @@ class MySkill(MycroftSkill):
           pass
       
       try:
+          GPIO.cleanup()
           GPIO.setmode(GPIO.BCM)
           GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
           self.log.info("******GPIO SETUP")
