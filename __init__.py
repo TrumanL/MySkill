@@ -1,4 +1,4 @@
-# TODO: Add an appropriate license to your skill before publishing.  Seea
+# TODO: Add an appropriate license to your skill before publishing.  See
 # the LICENSE file for more information.
 
 import sys
