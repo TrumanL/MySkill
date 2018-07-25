@@ -11,10 +11,7 @@ from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
-try:
-  import RPi.GPIO as GPIO
-except:
-  print(sys.exc_info())
+
 
 
 
@@ -33,6 +30,10 @@ class MySkill(MycroftSkill):
           self.add_event('notification.push', self.handle_push_notification)
       except:
           pass
+      try:
+          import RPi.GPIO as GPIO
+      except:
+          print(sys.exc_info())
       try:
           GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)
           self.log.info("******GPIO SETUP")
