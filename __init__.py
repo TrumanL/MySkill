@@ -141,6 +141,7 @@ class MySkill(MycroftSkill):
             GPIO.add_event_detect(17, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
             self.stop()
       else:
+          GPIO.add_event_detect(17, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
           self.stop()       
     
   
