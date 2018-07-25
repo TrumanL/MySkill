@@ -80,7 +80,7 @@ class MySkill(MycroftSkill):
             outMessageConfirm = self.get_response('ask.confirm_message_response')
             if any(word in outMessageConfirm for word in yes_words):
                 speak_dialog('ask.for_message')
-                record(join(self.file_system, 'test.wav')
+                record(join(self.file_system, 'test.wav'))
           f.seek(0)
           f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
           f.truncate()
@@ -123,7 +123,7 @@ class MySkill(MycroftSkill):
                 outMessageConfirm = self.get_response('ask.confirm_message_response')
                 if any(word in outMessageConfirm for word in yes_words):
                     #outMessage = self.get_response('ask.for_message')
-                    record(join(self.file_system, 'test.wav')
+                    record(join(self.file_system, 'test.wav'))
                     #print(outMessage)
               f.seek(0)
               f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
