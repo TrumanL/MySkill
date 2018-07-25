@@ -12,6 +12,7 @@ from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
 from mycroft.util import record, play_wav
+from mycroft.client.speech import ResponsiveRecognizer
 
 try:
     import RPi.GPIO as GPIO
