@@ -138,6 +138,7 @@ class MySkill(MycroftSkill):
                 wait_while_speaking()
         else :
             self.speak("I'll show them another time")
+            GPIO.add_event_detect(17, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
             self.stop()
       else:
           self.stop()       
