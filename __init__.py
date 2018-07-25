@@ -15,7 +15,7 @@ from mycroft.filesystem import FileSystemAccess
 try:
     import RPi.GPIO as GPIO
 except:
-    pass
+    print("GPIO Library import Failed")
 
 
 class MySkill(MycroftSkill):
