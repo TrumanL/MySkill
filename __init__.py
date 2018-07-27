@@ -6,7 +6,6 @@ import json
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
-from datetime import datetime, timedelta
 from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
@@ -25,7 +24,9 @@ class MySkill(MycroftSkill):
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
     self.MessageQueueFileName = 'MessageQueue.json'
-    self.GPIO_Port = 27
+    self.GPIO_Pin = 27
+    self.pull_up_down = GPIO.PUD_UP
+    self.falling_rising = GPIO.FALLING
     # Initialize working variables used within the skill.a
   def initialize(self):
       #initialize notification events
@@ -38,10 +39,10 @@ class MySkill(MycroftSkill):
       try:
           GPIO.cleanup()
           GPIO.setmode(GPIO.BCM)
-          GPIO.setup(self.GPIO_Port, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-          self.log.info("******GPIO SETUP:" + str(self.GPIO_Port))
-          GPIO.add_event_detect(self.GPIO_Port, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
-          self.log.info("******GPIO EVENT ADDED: " + str(self.GPIO_Port))
+          GPIO.setup(self.GPIO_Pin, GPIO.IN, pull_up_down=self.pull_up_down)
+          self.log.info("******GPIO SETUP:" + str(self.GPIO_Pin))
+          GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
+          self.log.info("******GPIO EVENT ADDED: " + str(self.GPIO_Pin))
       except:
           self.log.info("******GPIO EVENT FAILED")
           self.log.info(sys.exc_info())
@@ -140,10 +141,10 @@ class MySkill(MycroftSkill):
                 wait_while_speaking()
         else :
             self.speak("I'll show them another time")
-            GPIO.add_event_detect(17, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
+            GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
             self.stop()
       else:
-          GPIO.add_event_detect(17, GPIO.FALLING, callback=self.handle_read_messages_passive, bouncetime=300)
+          GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
           self.stop()       
     
   
