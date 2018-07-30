@@ -89,7 +89,7 @@ class MySkill(MycroftSkill):
       """
       
       messageData = json.load(f)    # Message Data stored in a list in a json object
-      
+      yes_words = set(self.translate_list('confirm'))
       if len(messageData["messages"]) > 0:     # checks if there are any messages
         if len(messageData["messages"]) == 1: # 1 message plural fix
             self.speak(str(len(messageData["messages"])) + " new message.")
@@ -97,7 +97,7 @@ class MySkill(MycroftSkill):
             self.speak(str(len(messageData["messages"])) + " new messages.")
         if passive:  # asks the user to confirm a read if it is passive activation
             confirmedIntent =  self.get_response("ask.confirm_message_view") 
-            yes_words = set(self.translate_list('confirm'))
+            
             confirmedBool = any(word in confirmedIntent for word in yes_words)
         else:
             confirmedBool = True
