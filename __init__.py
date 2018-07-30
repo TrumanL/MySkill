@@ -67,7 +67,7 @@ class MySkill(MycroftSkill):
   def handle_read_messages_intent(self, message): 
     # user initialized use case
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
-      read_messages(f, false)
+      self.read_messages(f, false)
   
   @intent_handler(IntentBuilder("").require("Add").require("Test").require("Messages"))
   def handle_add_test_message(self, message):
@@ -76,7 +76,7 @@ class MySkill(MycroftSkill):
   def handle_read_messages_passive(self, message):
     # passive (ie sensor, camera) activatied use case
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
-      read_messages(f, true)
+      self.read_messages(f, true)
  
   def read_messages(f, passive):
       """
