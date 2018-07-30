@@ -23,11 +23,12 @@ class MySkill(MycroftSkill):
   
   def __init__(self):
     super(MySkill, self).__init__(name="MySkill")
-    self.MessageQueueFileName = 'MessageQueue.json'
+    self.MessageQueueFileName = 'MessageQueue.json' # file_system object handles the full path
+    # GPIO variables created to make system changes much easier 
     self.GPIO_Pin = 27
     self.pull_up_down = GPIO.PUD_UP
     self.falling_rising = GPIO.FALLING
-    # Initialize working variables used within the skill.a
+     
   def initialize(self):
       #initialize notification events
       try: 
@@ -36,7 +37,8 @@ class MySkill(MycroftSkill):
       except:
           pass
       
-      try:
+      try: # try except needed to be cross platform 
+          #GPIO setup 
           GPIO.cleanup()
           GPIO.setmode(GPIO.BCM)
           GPIO.setup(self.GPIO_Pin, GPIO.IN, pull_up_down=self.pull_up_down)
@@ -46,76 +48,57 @@ class MySkill(MycroftSkill):
       except:
           self.log.info("******GPIO EVENT FAILED")
           self.log.info(sys.exc_info())
-      #initialize the message queue file if it does not already exista
+          
+      #initialize the message queue file if it does not already exist
       try:
           t = self.file_system.open(self.MessageQueueFileName, 'r')
-          t.close()
+          t.close() # opening as read only checks if the file exists and throwns and exception if it doesn't
       except:
           t = self.file_system.open(self.MessageQueueFileName, 'w')
           t.write(json.dumps({"messages":[]},  sort_keys=True, indent=4, separators=(',', ': ')))
-          t.close()
+          t.close() # new file created at the app data path 
  
   @intent_handler(IntentBuilder("").require("Read").require("Messages"))  
-  def handle_read_messages_intent(self, message):
+  def handle_read_messages_intent(self, message): 
+    # user initialized use case
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
-      messageData = json.load(f)
-      
-      if len(messageData["messages"]) > 0:
-        if len(messageData["messages"]) == 1:
-            self.speak(str(len(messageData["messages"])) + " new message.")
-        else:
-            self.speak(str(len(messageData["messages"])) + " new messages.")
-        yes_words = set(self.translate_list('confirm'))
-        
-        fullData = messageData
-        for i in range(len(fullData["messages"])):
-          
-          poppedData = messageData["messages"].pop()
-          self.speak("From " + poppedData["sender"] + ". " + poppedData["sender"] +" says")
-          wait_while_speaking()
-          self.speak(poppedData["data"])
-          wait_while_speaking()
-          
-          if poppedData["response-needed"] == "true":
-            
-            outMessageConfirm = self.get_response('ask.confirm_message_response')
-            if any(word in outMessageConfirm for word in yes_words):
-                self.speak_dialog('ask.for_message')
-                #record(self.file_system.path+'/test.wav', 600, 44100, 1)
-                self.speak('Done')
-          f.seek(0)
-          f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
-          f.truncate()
-          f.close()
-          if len(messageData["messages"]) > 0: 
-            self.speak("Next Message")
-            wait_while_speaking()
-          else:
-            self.speak("End Of messages")
-            wait_while_speaking()
-      else:
-          self.speak("No new messages")
-          wait_while_speaking()
-          self.stop()
-     
+      read_messages(f, false)
+  
   def handle_read_messages_passive(self, message):
+    # passive (ie sensor, camera) activatied use case
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
-      messageData = json.load(f)
-      self.log.info(len(messageData["messages"]))
-      if len(messageData["messages"]) > 0:
-        if len(messageData["messages"]) == 1:
+      read_messages(f, true)
+ 
+  def read_messages(f, passive):
+      """
+      # read_messages : function to make changing the core mechanics/ui of reading through messages
+      # easier while still maintaing a differance between use cases
+      # args : 
+      #     f : (.json file) the file where the message queue is stored
+      #     passive : (bool) : handles the different use case of a passive activation (ie by a motion tracker)
+      # no return
+      """
+      
+      messageData = json.load(f)    # Message Data stored in a list in a json object
+      
+      if len(messageData["messages"]) > 0:     # checks if there are any messages
+        if len(messageData["messages"]) == 1: # 1 message plural fix
             self.speak(str(len(messageData["messages"])) + " new message.")
         else:
             self.speak(str(len(messageData["messages"])) + " new messages.")
-        confirmedIntent =  self.get_response("ask.confirm_message_view")
-        yes_words = set(self.translate_list('confirm'))
-
-        if any(word in confirmedIntent for word in yes_words):
-            fullData = messageData
+        if passive:  # asks the user to confirm a read if it is passive activation
+            confirmedIntent =  self.get_response("ask.confirm_message_view") 
+            yes_words = set(self.translate_list('confirm'))
+            confirmedBool = any(word in confirmedIntent for word in yes_words)
+        else:
+            confirmedBool = true
+        
+        fullData = messageData # this is nessasary to maintain a copy of the full data to make looping more consistant 
+        if confirmedBool: 
             for i in range(len(fullData["messages"])):
               
-              poppedData = messageData["messages"].pop()
-              self.speak("From " + poppedData["sender"] + ". " + poppedData["sender"] +" says")
+              poppedData = messageData["messages"].pop() # pop works well here because we want it to work like a voicemail
+              self.speak("From " + poppedData["sender"] + ". " + poppedData["sender"] +" says") #actual reading of the message
               wait_while_speaking()
               self.speak(poppedData["data"])
               wait_while_speaking()
@@ -124,12 +107,13 @@ class MySkill(MycroftSkill):
                 
                 outMessageConfirm = self.get_response('ask.confirm_message_response')
                 if any(word in outMessageConfirm for word in yes_words):
-                    #outMessage = self.get_response('ask.for_message')
                     self.speak_dialog('ask.for_message')
-                    #record(self.file_system.path + '/test.wav', 600, 44100, 1)
+                    wait_while_speaking()
+                    #record(self.file_system.path+'/test.wav', 600, 44100, 1)
                     self.speak('Done')
-                    #print(outMessage)
-              f.seek(0)
+                    wait_while_speaking()
+              #the following lines write the poped data to the json file
+              f.seek(0) 
               f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
               f.truncate()
               f.close()
@@ -139,19 +123,38 @@ class MySkill(MycroftSkill):
               else:
                 self.speak("End Of messages")
                 wait_while_speaking()
-        else :
-            self.speak("I'll show them another time")
-            GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
+        else:
+            self.speak("I'll read them another time")
+            if passive: # GPIO events need to be reset 
+                 try: # needed for compatability between a system other than a pi
+                      GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
+                 except:
+                      pass
+            wait_while_speaking()
             self.stop()
-      else:
-          GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
-          self.stop()       
-    
-  
-  def handle_push_notification(self, message):
+      elif not passive:
+          self.speak("No new messages")
+          wait_while_speaking()
+          self.stop()
+      else: # GPIO events need to be reset 
+          try: # needed for compatability between a system other than a pi
+              GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
+          except:
+              pass
+          self.stop()
+          
+   def handle_push_notification(self, message):
+      """
+        # handle_push_notifications : used to inject a notification into the message queue from the websocket
+        # args : 
+        #    message : message object : the message data sent through the websocket; contains the message we want to inject
+        # no return
+      """
       with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
           messageQueue = json.load(f)
+          # message data needs to be serialized to access the json object
           messageQueue["messages"].append(json.loads(message.serialize())["data"]["messageData"])
+          # the following lines write the update json to the file
           f.seek(0)
           f.write(json.dumps(messageQueue, sort_keys=True, indent=4, separators=(',', ': ')))
           f.truncate()
