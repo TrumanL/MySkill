@@ -10,12 +10,10 @@ from mycroft.audio import wait_while_speaking
 from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
-
-
 try:
     import RPi.GPIO as GPIO
 except:
-    print("GPIO Library import Failed")
+    pass
 
 
 class MySkill(MycroftSkill):
@@ -29,7 +27,7 @@ class MySkill(MycroftSkill):
     self.pull_up_down = GPIO.PUD_UP
     self.falling_rising = GPIO.FALLING
     
-    self.testMessage = Message.deserialize({"messages":[{"data": "hi", "sender":"bob","response-needed":"true"}]})
+    self.testMessage = Message.deserialize({"type":"NULL", "messages":[{"data": "hi", "sender":"bob","response-needed":"true"}]})
   def initialize(self):
       #initialize notification events
       try: 
@@ -43,12 +41,13 @@ class MySkill(MycroftSkill):
           GPIO.cleanup() #cleanup needed if the event already exists (ensures updated events)
           GPIO.setmode(GPIO.BCM)
           GPIO.setup(self.GPIO_Pin, GPIO.IN, pull_up_down=self.pull_up_down)
-          self.log.info("******GPIO SETUP:" + str(self.GPIO_Pin))
+          #self.log.info("******GPIO SETUP:" + str(self.GPIO_Pin))
           GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
-          self.log.info("******GPIO EVENT ADDED: " + str(self.GPIO_Pin))
+          #self.log.info("******GPIO EVENT ADDED: " + str(self.GPIO_Pin))
       except:
-          self.log.info("******GPIO EVENT FAILED")
-          self.log.info(sys.exc_info())
+          #self.log.info("******GPIO EVENT FAILED")
+          #self.log.info(sys.exc_info())
+          pass
           
       #initialize the message queue file if it does not already exist
       try:
