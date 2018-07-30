@@ -119,7 +119,7 @@ class MySkill(MycroftSkill):
                     self.speak_dialog('ask.for_message')
                     wait_while_speaking()
                     #record(self.file_system.path+'/test.wav', 600, 44100, 1)
-                    self.emitTest.emit({"type":"mycrorft-audio-record"})
+                    self.emitTest.emit(json.dumps({"type":"mycrorft-audio-record"}))
                     self.speak('Done')
                     wait_while_speaking()
               #the following lines write the poped data to the json file
