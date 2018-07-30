@@ -119,19 +119,19 @@ class MySkill(MycroftSkill):
                     self.speak_dialog('ask.for_message')
                     wait_while_speaking()
                     #record(self.file_system.path+'/test.wav', 600, 44100, 1)
-                    self.emitTest.emit(Message.deserialize(json.dumps({"type":"mycrorft-audio-record"})))
+                    self.emitTest.emit(Message.deserialize(json.dumps({"type":"skill-audio-record:AudioRecordSkillIntent"})))
                     self.speak('Done')
                     wait_while_speaking()
               #the following lines write the poped data to the json file
               f.seek(0) 
               f.write(json.dumps(messageData, sort_keys=True, indent=4, separators=(',', ': ')))
               f.truncate()
-              f.close()
               if len(messageData["messages"]) > 0: 
                 self.speak("Next Message")
                 wait_while_speaking()
               else:
                 self.speak("End Of messages")
+                f.close()
                 wait_while_speaking()
         else:
             self.speak("I'll read them another time")
