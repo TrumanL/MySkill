@@ -119,6 +119,7 @@ class MySkill(MycroftSkill):
                     self.speak_dialog('ask.for_message')
                     wait_while_speaking()
                     #record(self.file_system.path+'/test.wav', 600, 44100, 1)
+                    self.log.info("Audio Request Sending")
                     self.emitTest.emit(Message.deserialize(json.dumps({"type":"skill-audio-record:AudioRecordSkillIntent"})))
                     self.speak('Done')
                     wait_while_speaking()
