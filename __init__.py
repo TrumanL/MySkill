@@ -2,6 +2,7 @@
 # the LICENSE file for more information.a
 
 import sys
+import time
 import json
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
