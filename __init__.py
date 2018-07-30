@@ -7,7 +7,6 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 from mycroft.audio import wait_while_speaking
-from mycroft.configuration import ConfigurationManager
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
 try:
@@ -36,6 +35,11 @@ class MySkill(MycroftSkill):
       except:
           pass
       
+      try:
+          self.emitTest = self.emitter
+          self.log.info("Emmiter Recieved")
+      except:
+          self.log.info("Emmiter NOT Recieved")
       try: # try except needed to be cross platform 
           #GPIO setup 
           GPIO.cleanup() #cleanup needed if the event already exists (ensures updated events)
