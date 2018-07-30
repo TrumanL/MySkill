@@ -151,22 +151,22 @@ class MySkill(MycroftSkill):
               pass
           self.stop()
           
-   def handle_push_notification(self, message):
-      """
-        # handle_push_notifications : used to inject a notification into the message queue from the websocket
-        # args : 
-        #    message : message object : the message data sent through the websocket; contains the message we want to inject
-        # no return
-      """
-      with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
-          messageQueue = json.load(f)
-          # message data needs to be serialized to access the json object and list
-          messageQueue["messages"].append(json.loads(message.serialize())["data"]["messageData"])
-          # the following lines write the update json to the file
-          f.seek(0)
-          f.write(json.dumps(messageQueue, sort_keys=True, indent=4, separators=(',', ': ')))
-          f.truncate()
-          f.close()
+  def handle_push_notification(self, message):
+    """
+      # handle_push_notifications : used to inject a notification into the message queue from the websocket
+      # args : 
+      #    message : message object : the message data sent through the websocket; contains the message we want to inject
+      # no return
+    """
+    with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
+        messageQueue = json.load(f)
+        # message data needs to be serialized to access the json object and list
+        messageQueue["messages"].append(json.loads(message.serialize())["data"]["messageData"])
+        # the following lines write the update json to the file
+        f.seek(0)
+        f.write(json.dumps(messageQueue, sort_keys=True, indent=4, separators=(',', ': ')))
+        f.truncate()
+        f.close()
   
   def stop(self):
     return False
