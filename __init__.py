@@ -1,5 +1,5 @@
 # TODO: Add an appropriate license to your skill before publishing.  See
-# the LICENSE file for more information.
+# the LICENSE file for more information.a
 
 import sys
 import json
