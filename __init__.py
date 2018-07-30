@@ -78,7 +78,7 @@ class MySkill(MycroftSkill):
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
       self.read_messages(f, True)
  
-  def read_messages(f, passive):
+  def read_messages(self, f, passive):
       """
       # read_messages : function to make changing the core mechanics/ui of reading through messages
       # easier while still maintaing a differance between use cases
