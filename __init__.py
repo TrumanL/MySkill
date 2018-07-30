@@ -9,6 +9,7 @@ from mycroft.util.log import LOG
 from mycroft.audio import wait_while_speaking
 from os.path import join, abspath, dirname
 from mycroft.filesystem import FileSystemAccess
+from mycroft.messagebus.message import Message
 try:
     import RPi.GPIO as GPIO
 except:
