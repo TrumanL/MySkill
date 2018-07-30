@@ -28,7 +28,8 @@ class MySkill(MycroftSkill):
     self.GPIO_Pin = 27
     self.pull_up_down = GPIO.PUD_UP
     self.falling_rising = GPIO.FALLING
-     
+    
+    self.testMessage = Message.deserialize({"messages":[{"data": "hi", "sender":"bob","response-needed":"true"}]})
   def initialize(self):
       #initialize notification events
       try: 
@@ -39,7 +40,7 @@ class MySkill(MycroftSkill):
       
       try: # try except needed to be cross platform 
           #GPIO setup 
-          GPIO.cleanup()
+          GPIO.cleanup() #cleanup needed if the event already exists (ensures updated events)
           GPIO.setmode(GPIO.BCM)
           GPIO.setup(self.GPIO_Pin, GPIO.IN, pull_up_down=self.pull_up_down)
           self.log.info("******GPIO SETUP:" + str(self.GPIO_Pin))
@@ -63,6 +64,10 @@ class MySkill(MycroftSkill):
     # user initialized use case
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
       read_messages(f, false)
+  
+  @intent_handler(IntentBuilder("").require("Add").require("Test").require("Messages"))
+  def handle_add_test_message(self, message):
+     self.handle_push_notification(self.testMessage)
   
   def handle_read_messages_passive(self, message):
     # passive (ie sensor, camera) activatied use case
