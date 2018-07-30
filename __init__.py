@@ -27,7 +27,7 @@ class MySkill(MycroftSkill):
     self.pull_up_down = GPIO.PUD_UP
     self.falling_rising = GPIO.FALLING
     
-    self.testMessage = Message.deserialize(json.dumps({"type":"NULL", "data":{"messageData":[{"data": "hi", "sender":"bob","response-needed":"true"}]}}))
+    self.testMessage = Message.deserialize(json.dumps({"type":"NULL", "data":{"messageData":[{"data": "hi", "sender":"bob","response-needed":"True"}]}}))
   def initialize(self):
       #initialize notification events
       try: 
@@ -100,7 +100,7 @@ class MySkill(MycroftSkill):
             yes_words = set(self.translate_list('confirm'))
             confirmedBool = any(word in confirmedIntent for word in yes_words)
         else:
-            confirmedBool = true
+            confirmedBool = True
         
         fullData = messageData # this is nessasary to maintain a copy of the full data to make looping more consistant 
         if confirmedBool: 
@@ -112,7 +112,7 @@ class MySkill(MycroftSkill):
               self.speak(poppedData["data"])
               wait_while_speaking()
               
-              if poppedData["response-needed"] == "true":
+              if poppedData["response-needed"] == "True":
                 
                 outMessageConfirm = self.get_response('ask.confirm_message_response')
                 if any(word in outMessageConfirm for word in yes_words):
