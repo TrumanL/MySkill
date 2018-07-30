@@ -121,6 +121,7 @@ class MySkill(MycroftSkill):
                     #record(self.file_system.path+'/test.wav', 600, 44100, 1)
                     self.log.info("Audio Request Sending")
                     self.emitTest.emit(Message.deserialize(json.dumps({"type":"skill-audio-record:AudioRecordSkillIntent", "data":{"utterance":"record audio 40 seconds"}})))
+                    self.emitTest.wait_for_response('mycroft.skill.handler.complete')
                     self.speak('Done')
                     wait_while_speaking()
               #the following lines write the poped data to the json file
