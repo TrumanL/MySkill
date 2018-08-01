@@ -49,7 +49,7 @@ class MySkill(MycroftSkill):
           GPIO.setup(self.GPIO_Pin, GPIO.IN, pull_up_down=self.pull_up_down)
           #self.log.info("******GPIO SETUP:" + str(self.GPIO_Pin))
           GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
-          #self.log.info("******GPIO EVENT ADDED: " + str(self.GPIO_Pin))
+          self.log.info("******GPIO EVENT ADDED: " + str(self.GPIO_Pin))
       except:
           #self.log.info("******GPIO EVENT FAILED")
           #self.log.info(sys.exc_info())
