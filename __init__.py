@@ -164,7 +164,7 @@ class MySkill(MycroftSkill):
               GPIO.setmode(GPIO.BCM)
               GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
           except:
-              pass
+              print("except on passive no messages")
           self.stop()
           
   def handle_push_notification(self, message):
