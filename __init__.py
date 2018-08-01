@@ -177,7 +177,8 @@ class MySkill(MycroftSkill):
   
   def stop(self):
     GPIO.cleanup()
-    self.log.info("GPIO cleaned")
+    GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
+    self.log.info("GPIO cleaned and event refreshed")
     return False
 
 def create_skill():
