@@ -28,7 +28,7 @@ class MySkill(MycroftSkill):
     self.pull_up_down = GPIO.PUD_UP
     self.falling_rising = GPIO.FALLING
     
-    self.testMessage = Message.deserialize(json.dumps({"type":"NULL", "data":{"messageData":{"data":"hi", "sender":"bob","response-needed":"True"}}}))
+    self.testMessage = Message.deserialize(json.dumps({"type":"NULL", "data":{"messageData":{"data":"hi, how are you doing?", "sender":"bob","response-needed":"True"}}}))
   def initialize(self):
       #initialize notification events
       try: 
