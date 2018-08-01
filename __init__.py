@@ -140,6 +140,7 @@ class MySkill(MycroftSkill):
             self.speak("I'll read them another time")
             if passive: # GPIO events need to be reset 
                  try: # needed for compatability between a system other than a pi
+                      GPIO.cleanup()
                       GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
                  except:
                       pass
@@ -151,6 +152,7 @@ class MySkill(MycroftSkill):
           self.stop()
       else: # GPIO events need to be reset 
           try: # needed for compatability between a system other than a pi
+              GPIO.cleanup()
               GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
           except:
               pass
@@ -174,6 +176,7 @@ class MySkill(MycroftSkill):
         f.close()
   
   def stop(self):
+    GPIO.cleanup()
     return False
 
 def create_skill():
