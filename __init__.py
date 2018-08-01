@@ -167,7 +167,7 @@ class MySkill(MycroftSkill):
     """
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
         messageQueue = json.load(f)
-        # message data needs to be serialized to access the json object and list
+        # message data needs to be serialized to access the json object and lista
         messageQueue["messages"].append(json.loads(message.serialize())["data"]["messageData"])
         # the following lines write the update json to the file
         f.seek(0)
