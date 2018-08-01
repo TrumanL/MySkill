@@ -98,7 +98,8 @@ class MySkill(MycroftSkill):
             self.speak(str(len(messageData["messages"])) + " new messages.")
         if passive:  # asks the user to confirm a read if it is passive activation
             #resp = self.ask_yesno('ask.confirm_message_view')
-            resp = self.get_response('ask.confirm_message_view', numtries=3)
+            resp = self.get_response('ask.confirm_message_view', num_retries=0)
+            self.log.info(resp)
             if  resp == 'yes':
               confirmedBool = True
             elif any(word in resp for word in yes_words):
