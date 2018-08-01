@@ -44,7 +44,6 @@ class MySkill(MycroftSkill):
           self.log.info("Emmiter NOT Recieved")
       try: # try except needed to be cross platform 
           #GPIO setup 
-          GPIO.cleanup() #cleanup needed if the event already exists (ensures updated events)
           GPIO.setmode(GPIO.BCM)
           GPIO.setup(self.GPIO_Pin, GPIO.IN, pull_up_down=self.pull_up_down)
           #self.log.info("******GPIO SETUP:" + str(self.GPIO_Pin))
@@ -141,6 +140,7 @@ class MySkill(MycroftSkill):
             if passive: # GPIO events need to be reset 
                  try: # needed for compatability between a system other than a pi
                       GPIO.cleanup()
+                      GPIO.setmode(GPIO.BCM)
                       GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
                  except:
                       pass
@@ -153,6 +153,7 @@ class MySkill(MycroftSkill):
       else: # GPIO events need to be reset 
           try: # needed for compatability between a system other than a pi
               GPIO.cleanup()
+              GPIO.setmode(GPIO.BCM)
               GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
           except:
               pass
