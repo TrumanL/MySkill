@@ -177,6 +177,7 @@ class MySkill(MycroftSkill):
   
   def stop(self):
     GPIO.cleanup()
+    self.log.info("GPIO cleaned")
     return False
 
 def create_skill():
