@@ -75,7 +75,7 @@ class MySkill(MycroftSkill):
   
   def handle_read_messages_passive(self, message):
     # passive (ie sensor, camera) activatied use case
-    self.emitTest.emit(Message("active_skill_request", {"skill_id":"MySkill"}})))
+    self.emitTest.emit(Message("active_skill_request", {"skill_id":"MySkill"}))
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
       self.read_messages(f, True)
  
