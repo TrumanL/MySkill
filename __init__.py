@@ -99,9 +99,9 @@ class MySkill(MycroftSkill):
             resp = self.ask_yesno('ask.confirm_message_view')
             if  resp == 'yes':
               confirmedBool = True
-           elif any(word in resp for word in yes_words):
+            elif any(word in resp for word in yes_words):
               confirmedBool = True
-           else:
+            else:
              confimedBool = False
             
             confirmedBool = any(word in confirmedIntent for word in yes_words)
