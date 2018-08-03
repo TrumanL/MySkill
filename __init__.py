@@ -75,7 +75,6 @@ class MySkill(MycroftSkill):
   
   def handle_read_messages_passive(self, message):
     # passive (ie sensor, camera) activatied use case
-    self.emitTest.emit(Message("active_skill_request", {"skill_id":"MySkill"}))
     with self.file_system.open(self.MessageQueueFileName, 'r+') as f:
       self.read_messages(f, True)
  
@@ -97,17 +96,11 @@ class MySkill(MycroftSkill):
         else:
             self.speak(str(len(messageData["messages"])) + " new messages.")
         if passive:  # asks the user to confirm a read if it is passive activation
-            #resp = self.ask_yesno('ask.confirm_message_view')
-            resp = self.get_response('ask.confirm_message_view', num_retries=0)
-            self.log.info(resp)
-            if  resp == 'yes':
-              confirmedBool = True
-            elif any(word in resp for word in yes_words):
-              confirmedBool = True
-            else:
-             confimedBool = False
+            confirmedIntent =  self.get_response("ask.confirm_message_view") 
             
             confirmedBool = any(word in confirmedIntent for word in yes_words)
+        else:
+            confirmedBool = True
         else:
             confirmedBool = True
         
@@ -148,8 +141,6 @@ class MySkill(MycroftSkill):
             self.speak("I'll read them another time")
             if passive: # GPIO events need to be reset 
                  try: # needed for compatability between a system other than a pi
-                      GPIO.cleanup()
-                      GPIO.setmode(GPIO.BCM)
                       GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
                  except:
                       pass
@@ -161,8 +152,6 @@ class MySkill(MycroftSkill):
           self.stop()
       else: # GPIO events need to be reset 
           try: # needed for compatability between a system other than a pi
-              GPIO.cleanup()
-              GPIO.setmode(GPIO.BCM)
               GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
           except:
               print("except on passive no messages")
