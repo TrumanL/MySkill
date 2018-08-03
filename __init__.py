@@ -42,7 +42,7 @@ class MySkill(MycroftSkill):
           self.log.info("Emmiter Recieved")
       except:
           self.log.info("Emmiter NOT Recieved")
-      try: # try except needed to be cross platform 
+      try: # try except needed to be cross platforma
           #GPIO setup 
           GPIO.setmode(GPIO.BCM)
           GPIO.setup(self.GPIO_Pin, GPIO.IN, pull_up_down=self.pull_up_down)
