@@ -99,6 +99,7 @@ class MySkill(MycroftSkill):
             confirmedIntent =  self.ask_yesno("ask.confirm_message_view") 
             self.log.info(confirmedIntent)
             confirmedBool = true if confirmedIntent == 'yes' else false
+            self.log.info(confirmedIntent)
         else:
             confirmedBool = True
         
