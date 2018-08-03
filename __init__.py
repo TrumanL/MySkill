@@ -101,8 +101,6 @@ class MySkill(MycroftSkill):
             confirmedBool = any(word in confirmedIntent for word in yes_words)
         else:
             confirmedBool = True
-        else:
-            confirmedBool = True
         
         fullData = messageData # this is nessasary to maintain a copy of the full data to make looping more consistant 
         if confirmedBool: 
