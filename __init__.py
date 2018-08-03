@@ -96,9 +96,10 @@ class MySkill(MycroftSkill):
         else:
             self.speak(str(len(messageData["messages"])) + " new messages.")
         if passive:  # asks the user to confirm a read if it is passive activation
-            confirmedIntent =  self.ask_yesno("ask.confirm_message_view") 
-            self.log.info(confirmedIntent)
-            confirmedBool = true if confirmedIntent == 'yes' else false
+            #confirmedIntent =  self.ask_yesno("ask.confirm_message_view") 
+            #self.log.info(confirmedIntent)
+            #confirmedBool = true if confirmedIntent == 'yes' else false
+            confirmedBool = true
         else:
             confirmedBool = True
         
@@ -107,7 +108,7 @@ class MySkill(MycroftSkill):
             for i in range(len(fullData["messages"])):
               
               poppedData = messageData["messages"].pop() # pop works well here because we want it to work like a voicemail
-              self.speak("From " + poppedData["sender"] + ". " + poppedData["sender"] +" says") #actual reading of the message
+              self.speak("Message "+ str(i) +" from " + poppedData["sender"] + ". " + poppedData["sender"] +" says") #actual reading of the message
               wait_while_speaking()
               self.speak(poppedData["data"])
               wait_while_speaking()
