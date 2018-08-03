@@ -99,7 +99,7 @@ class MySkill(MycroftSkill):
             #confirmedIntent =  self.ask_yesno("ask.confirm_message_view") 
             #self.log.info(confirmedIntent)
             #confirmedBool = true if confirmedIntent == 'yes' else false
-            confirmedBool = true
+            confirmedBool = True
         else:
             confirmedBool = True
         
@@ -140,7 +140,7 @@ class MySkill(MycroftSkill):
             self.speak("I'll read them another time")
             if passive: # GPIO events need to be reset 
                  try: # needed for compatability between a system other than a pi
-                      GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
+                      GPIO.cleanup()
                  except:
                       pass
             wait_while_speaking()
@@ -151,7 +151,7 @@ class MySkill(MycroftSkill):
           self.stop()
       else: # GPIO events need to be reset 
           try: # needed for compatability between a system other than a pi
-              GPIO.add_event_detect(self.GPIO_Pin, self.falling_rising, callback=self.handle_read_messages_passive, bouncetime=300)
+              GPIO.cleanup()
           except:
               print("except on passive no messages")
           self.stop()
